@@ -280,7 +280,7 @@
 									"}, function (err, response) {",
 									"  pm.environment.set(\"access_token\", response.json().data.tokens.access);",
 									"  pm.sendRequest({",
-									"    url: 'http://localhost:8083/kafka/subscribe',",
+									"    url: 'http://192.168.88.182:8083/kafka/subscribe',",
 									"    method: 'POST',",
 									"    header: {",
 									"      'login': 'qa1',",
@@ -504,61 +504,61 @@
 	],
 	"variable": [
 		{
-			"id": "efba036f-161c-47eb-91ac-4e05b64398fe",
+			"id": "72b8b0a5-b3ed-46f1-9a25-4d189abf5131",
 			"key": "create-ei",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "0cb7c145-8559-4da9-b63d-e456a8daf7a4",
+			"id": "248c971c-d9ce-43dd-9177-da1c96f34b70",
 			"key": "project-id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d1148430-a2b2-4de3-9b2d-cb91e288936b",
+			"id": "2897a329-c3ae-4a6d-ad8e-c029a48f6a2c",
 			"key": "regression",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "5b13455c-018b-43b7-aacf-c9d2f7d8232a",
+			"id": "b712cc8a-b42a-43c0-b6a3-f54eb59d6140",
 			"key": "testrail-get-cases",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "51a52722-1f32-4d3c-a36e-0946009ff611",
+			"id": "20f16434-5fb9-4ba4-8398-3e3d527df113",
 			"key": "testrail-host",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "8d396916-2550-4b55-88d8-ff0a0bae6dfb",
+			"id": "126d2bc4-0ebe-4a3b-a491-890d14af2441",
 			"key": "cases-4-run",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "12ff23ea-b0cd-4be3-a204-1d9d50b2bebb",
+			"id": "3d140a69-ea07-4557-af44-39214472da28",
 			"key": "create-ei-suite-id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "f1045af8-9e8d-4994-8839-0601f829f120",
+			"id": "8c46e454-4b33-4e46-bfe8-24022c763d84",
 			"key": "ei",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "c299e817-452a-44b6-bc11-8a8efa9dfcae",
+			"id": "85ba9670-269a-4472-9f00-dff509e03c05",
 			"key": "run-id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "5b8cb8f0-dfb4-4438-9a5d-58ea80961678",
+			"id": "31a5885a-5c4c-4117-a13e-ecc63c8124e4",
 			"key": "full_ei",
 			"value": "",
 			"type": "string"
