@@ -196,10 +196,8 @@
 										"id": "58eea84a-b1de-4b67-bf55-365d4a363937",
 										"exec": [
 											"full_ei = pm.environment.get(\"full_ei\")",
-											"console.log(full_ei)",
 											"full_ei.tender.title = \"werwerwer\"",
 											"pm.environment.set(\"full_ei\", JSON.stringify(pm.environment.get(\"full_ei\")));",
-											"console.log(full_ei)",
 											""
 										],
 										"type": "text/javascript"
@@ -548,61 +546,61 @@
 	],
 	"variable": [
 		{
-			"id": "5513677d-89bf-465f-990c-b875e919c665",
+			"id": "b0c2db3c-efa3-484a-a1e7-b9f1619a4972",
 			"key": "create-ei",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "46ef3898-09d9-4b1d-8a1e-76aa0dcc059c",
+			"id": "e4ee8af7-17e7-43f2-9006-dd8557891055",
 			"key": "project-id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "5f17a7d4-f657-4736-8c6a-898d9d66ba71",
+			"id": "dadd0884-3bfb-4e0c-aaf4-0c7ce63be03c",
 			"key": "regression",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "715b78d3-2a29-4511-aac6-1985a2f07cb4",
+			"id": "e869b298-7430-4da0-b323-ee300ce3ed2e",
 			"key": "testrail-get-cases",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ee8d1876-689e-41cb-a50d-52e316456255",
+			"id": "2b06580e-e5ad-4d49-896f-ebb80b7fbc53",
 			"key": "testrail-host",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "bb054ae9-dda8-49d5-8637-3b063aa3d327",
+			"id": "a82d1c4d-8e2f-4393-a7dd-ee25efa69ccc",
 			"key": "cases-4-run",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "1e6f5092-92dc-4c89-8704-4cb16d795717",
+			"id": "1da208df-40ed-4c2d-8ae2-794e280f057e",
 			"key": "create-ei-suite-id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "523f6b10-deae-4fd2-8594-0101070dc422",
+			"id": "476fb103-6b28-49ae-bdbe-d54dcf182dc5",
 			"key": "ei",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "adac60db-3076-4b44-970e-775524d73c8e",
+			"id": "a09ba001-5e72-4315-8bd9-c3e03169839b",
 			"key": "run-id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "dc911cb1-6952-4843-9dd5-c0dc8bbd80b8",
+			"id": "1ceb5d9f-00f3-4a51-aee3-aa86d94feb6c",
 			"key": "full_ei",
 			"value": "",
 			"type": "string"
