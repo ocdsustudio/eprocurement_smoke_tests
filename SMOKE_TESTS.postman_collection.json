@@ -292,46 +292,6 @@
 									"    }",
 									"  })",
 									"",
-									"  pm.sendRequest({",
-									"    url: pm.environment.get('host') + \"storage/registration/\",",
-									"    method: 'POST',",
-									"    header: {",
-									"      'Authorization': 'Bearer ' + pm.environment.get('access_token'),",
-									"      'Content-Type': 'application/json'",
-									"    },",
-									"    body: {",
-									"      mode: 'raw',",
-									"      raw: JSON.stringify({",
-									"        \"fileName\": \"file-for-tests.pdf\",",
-									"        \"hash\": \"7ef59ec7247961e0afb502ec3db4bc16\",",
-									"        \"weight\": 1048576",
-									"      })",
-									"    }",
-									"  }, function (err, response) {",
-									"    pm.environment.set(\"doc_id\", response.json().data.id);",
-									"    pm.environment.set(\"doc_id-str\", `\"${response.json().data.id}\"`);",
-									"  });",
-									"",
-									"  setTimeout(function () {",
-									"    pm.sendRequest({",
-									"      url: pm.environment.get('host') + \"storage/upload/\" + pm.environment.get('doc_id'),",
-									"      method: 'POST',",
-									"      header: {",
-									"        'Authorization': 'Bearer ' + pm.environment.get('access_token'),",
-									"        'Content-Type': 'multipart/formdata'",
-									"      },",
-									"      body: {",
-									"        mode: 'formdata',",
-									"        formdata: [{",
-									"          file: \"/home/illia/Documents/test-files/file-for-tests.pdf\"",
-									"        }]",
-									"      }",
-									"    }, function (err, response) {",
-									"      console.log('document are ready')",
-									"    })",
-									"  }, 500);",
-									"",
-									"",
 									"  // GET X-OPERATION-ID and set var x-operation-id",
 									"  pm.sendRequest({",
 									"    url: pm.environment.get('host') + \"operations\",",
@@ -434,8 +394,6 @@
 									"}",
 									"",
 									"pm.environment.set(\"full_ei\", full_ei);",
-									"",
-									"console.log(pm.environment.get(\"full_ei\"));",
 									"",
 									""
 								]
@@ -546,61 +504,61 @@
 	],
 	"variable": [
 		{
-			"id": "b0c2db3c-efa3-484a-a1e7-b9f1619a4972",
+			"id": "efba036f-161c-47eb-91ac-4e05b64398fe",
 			"key": "create-ei",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "e4ee8af7-17e7-43f2-9006-dd8557891055",
+			"id": "0cb7c145-8559-4da9-b63d-e456a8daf7a4",
 			"key": "project-id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "dadd0884-3bfb-4e0c-aaf4-0c7ce63be03c",
+			"id": "d1148430-a2b2-4de3-9b2d-cb91e288936b",
 			"key": "regression",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "e869b298-7430-4da0-b323-ee300ce3ed2e",
+			"id": "5b13455c-018b-43b7-aacf-c9d2f7d8232a",
 			"key": "testrail-get-cases",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "2b06580e-e5ad-4d49-896f-ebb80b7fbc53",
+			"id": "51a52722-1f32-4d3c-a36e-0946009ff611",
 			"key": "testrail-host",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a82d1c4d-8e2f-4393-a7dd-ee25efa69ccc",
+			"id": "8d396916-2550-4b55-88d8-ff0a0bae6dfb",
 			"key": "cases-4-run",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "1da208df-40ed-4c2d-8ae2-794e280f057e",
+			"id": "12ff23ea-b0cd-4be3-a204-1d9d50b2bebb",
 			"key": "create-ei-suite-id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "476fb103-6b28-49ae-bdbe-d54dcf182dc5",
+			"id": "f1045af8-9e8d-4994-8839-0601f829f120",
 			"key": "ei",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a09ba001-5e72-4315-8bd9-c3e03169839b",
+			"id": "c299e817-452a-44b6-bc11-8a8efa9dfcae",
 			"key": "run-id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "1ceb5d9f-00f3-4a51-aee3-aa86d94feb6c",
+			"id": "5b8cb8f0-dfb4-4438-9a5d-58ea80961678",
 			"key": "full_ei",
 			"value": "",
 			"type": "string"
