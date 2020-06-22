@@ -1,0 +1,612 @@
+{
+	"info": {
+		"_postman_id": "eced4bd8-6c5b-4899-82e6-b223869f5f74",
+		"name": "SMOKE_TESTS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "BPE: Create EI",
+			"item": [
+				{
+					"name": "Setup",
+					"item": [
+						{
+							"name": "001_get_smoke_cases",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c0167371-725f-4a8e-9852-c73cb61c6ff0",
+										"exec": [
+											"// Тестируем статус ответа и формат",
+											"pm.test(\"Status is ok, response is json\", function () {",
+											"    pm.response.to.be.ok; // проверка статуса",
+											"    pm.response.to.be.json; // проверка формата",
+											"});",
+											"",
+											"try {",
+											"    // сохраняем нужные кейсы для того, чтобы потом использовать в ране",
+											"    var response =  pm.response.json();",
+											"    const arr = response.filter((res) => res.custom_tag.some(el => el === 1)).map(res => res.id);",
+											"    console.log(arr)",
+											"    pm.collectionVariables.set('cases-4-run', arr);",
+											"",
+											"} catch (e) {",
+											"    // выводим исключение в консоль",
+											"    console.log(e);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "add2uStudio",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "noreply@ustudio.company",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"BPE: Tender or lot amendment confirmation\",\n    \"include_all\": false,\n    \"case_ids\": [\n        \"20969\", \"20970\", \"20978\", \"20979\"\n    ],\n    \"suite_id\": 195\n}"
+								},
+								"url": {
+									"raw": "{{testrail-host}}{{testrail-get-cases}}/{{project-id}}{{create-ei}}",
+									"host": [
+										"{{testrail-host}}{{testrail-get-cases}}"
+									],
+									"path": [
+										"{{project-id}}{{create-ei}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "002_add run",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "55e43b21-6667-468e-b9de-38468c9512ed",
+										"exec": [
+											"// Тестируем статус ответа и формат",
+											"pm.test(\"Status is ok, response is json\", function () {",
+											"    pm.response.to.be.ok; // проверка статуса",
+											"    pm.response.to.be.json; // проверка формата",
+											"});",
+											"",
+											"try {",
+											"    // сохраняем userId из json ответа в переменную окружения",
+											"    pm.collectionVariables.set('run-id', pm.response.json().id);",
+											"} catch (e) {",
+											"    // выводим исключение в консоль",
+											"    console.log(e);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "add2uStudio",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "noreply@ustudio.company",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"BPE: Create EI\",\n    \"include_all\": false,\n    \"case_ids\": [\n        {{cases-4-run}}\n    ],\n    \"suite_id\": {{create-ei-suite-id}}\n}"
+								},
+								"url": {
+									"raw": "{{testrail-host}}add_run/{{project-id}}",
+									"host": [
+										"{{testrail-host}}add_run"
+									],
+									"path": [
+										"{{project-id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Cases",
+					"item": [
+						{
+							"name": "Check on possibility to create EI with a full data model",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b92d9fa9-deb7-4cf7-ba54-b31527952fe3",
+										"exec": [
+											"//Mark test as pass",
+											"pm.sendRequest({",
+											"  url: \"https://ustudiocompany.testrail.io/index.php?/api/v2/add_results_for_cases/\" + pm.collectionVariables.get('run-id'),",
+											"  method: 'POST',",
+											"  header: {",
+											"    'Content-Type': 'application/json',",
+											"    \"Authorization\": \"Basic bm9yZXBseUB1c3R1ZGlvLmNvbXBhbnk6YWRkMnVTdHVkaW8=\"",
+											"  },",
+											"  body: {",
+											"    mode: \"raw\",",
+											"    raw: JSON.stringify({",
+											"      \"results\": [{",
+											"        \"case_id\": 22908,",
+											"        \"status_id\": 1,",
+											"        \"comment\": \"This test PASS\"",
+											"      }]",
+											"    })",
+											"  }",
+											"}, function (err, response) {",
+											"  pm.environment.set('run.id', response.json().id);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "58eea84a-b1de-4b67-bf55-365d4a363937",
+										"exec": [
+											"full_ei = pm.environment.get(\"full_ei\")",
+											"console.log(full_ei)",
+											"full_ei.tender.title = \"werwerwer\"",
+											"pm.environment.set(\"full_ei\", JSON.stringify(pm.environment.get(\"full_ei\")));",
+											"console.log(full_ei)",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-operation-id",
+										"value": "{{x-operation-id}}",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{full_ei}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}do/ei?country=MD",
+									"host": [
+										"{{host}}do"
+									],
+									"path": [
+										"ei"
+									],
+									"query": [
+										{
+											"key": "country",
+											"value": "MD"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7c9c02b3-2c11-4d2e-b6a7-b4d208a4d9ff",
+								"type": "text/javascript",
+								"exec": [
+									"//GET access_token",
+									"pm.sendRequest({",
+									"  url: pm.environment.get('host') + \"auth/signin\",",
+									"  method: 'GET',",
+									"  header: {",
+									"    //Platform1",
+									"    'Authorization': 'Basic dXNlcjpwYXNzd29yZA=='",
+									"    //Platform2",
+									"    //'Authorization': 'Basic YXV0b21hdGlvbl91c2VyOnBhc3N3b3Jk'",
+									"  }",
+									"}, function (err, response) {",
+									"  pm.environment.set(\"access_token\", response.json().data.tokens.access);",
+									"  pm.sendRequest({",
+									"    url: 'http://localhost:8080/kafka/subscribe',",
+									"    method: 'POST',",
+									"    header: {",
+									"      'login': 'qa1',",
+									"      'password': pm.environment.get('topic-password'),",
+									"      'topics': pm.environment.get('kafka-topic'),",
+									"      'host': pm.environment.get('kafka-host'),",
+									"      'group_id': 'console-consumer-qa1',",
+									"      'Content-Type': 'application/json',",
+									"    }",
+									"  })",
+									"",
+									"  pm.sendRequest({",
+									"    url: pm.environment.get('host') + \"storage/registration/\",",
+									"    method: 'POST',",
+									"    header: {",
+									"      'Authorization': 'Bearer ' + pm.environment.get('access_token'),",
+									"      'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"      mode: 'raw',",
+									"      raw: JSON.stringify({",
+									"        \"fileName\": \"file-for-tests.pdf\",",
+									"        \"hash\": \"7ef59ec7247961e0afb502ec3db4bc16\",",
+									"        \"weight\": 1048576",
+									"      })",
+									"    }",
+									"  }, function (err, response) {",
+									"    pm.environment.set(\"doc_id\", response.json().data.id);",
+									"    pm.environment.set(\"doc_id-str\", `\"${response.json().data.id}\"`);",
+									"  });",
+									"",
+									"  setTimeout(function () {",
+									"    pm.sendRequest({",
+									"      url: pm.environment.get('host') + \"storage/upload/\" + pm.environment.get('doc_id'),",
+									"      method: 'POST',",
+									"      header: {",
+									"        'Authorization': 'Bearer ' + pm.environment.get('access_token'),",
+									"        'Content-Type': 'multipart/formdata'",
+									"      },",
+									"      body: {",
+									"        mode: 'formdata',",
+									"        formdata: [{",
+									"          file: \"/home/illia/Documents/test-files/file-for-tests.pdf\"",
+									"        }]",
+									"      }",
+									"    }, function (err, response) {",
+									"      console.log('document are ready')",
+									"    })",
+									"  }, 500);",
+									"",
+									"",
+									"  // GET X-OPERATION-ID and set var x-operation-id",
+									"  pm.sendRequest({",
+									"    url: pm.environment.get('host') + \"operations\",",
+									"    method: 'POST',",
+									"    header: {",
+									"      'Authorization': 'Bearer ' + pm.environment.get('access_token')",
+									"    }",
+									"  }, function (err, response) {",
+									"    String.prototype.replaceAt = function (index, replacement) {",
+									"      return this.substr(0, index) + replacement + this.substr(index + replacement.length);",
+									"    };",
+									"    let str = response.json().data.operationId;",
+									"    let index = 32;",
+									"    str = str.replaceAt(index, \"0\");",
+									"    index = 33;",
+									"    str = str.replaceAt(index, \"3\");",
+									"    index = 34;",
+									"    str = str.replaceAt(index, \"1\");",
+									"    index = 35;",
+									"    str = str.replaceAt(index, \"0\");",
+									"    pm.environment.set('x-operation-id', str);",
+									"    pm.environment.set('x-operation-id-str', `\"${str}\"`);",
+									"  });",
+									"});",
+									"",
+									"function uuidv4() {",
+									"  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {",
+									"    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);",
+									"    return v.toString(16);",
+									"  });",
+									"}",
+									"",
+									"var uuid = uuidv4();",
+									"pm.environment.set('uuid', `\"${uuid}\"`);",
+									"",
+									"var full_ei = {",
+									"\t\"tender\": {",
+									"\t\t\"title\": \"Servicii de reparatie si intretinere a vehicolelor\",",
+									"\t\t\"description\": \"Servicii de reparatie si intretinere a vehicolelor de modelPeugeot Boxer 2.5 TDI\",",
+									"\t\t\"classification\": {",
+									"\t\t\t\"id\": \"50100000-6\",",
+									"\t\t\t\"scheme\": \"CPV\",",
+									"\t\t\t\"description\": \"Servicii de reparare şi de întreţinere a vehiculelor şi a echipamentelor aferente şi servicii conexe\"",
+									"\t\t}",
+									"\t},",
+									"\t\"planning\": {",
+									"\t\t\"budget\": {",
+									"\t\t\t\"period\": {",
+									"\t\t\t\t\"startDate\": \"2019-01-01T11:07:00Z\",",
+									"\t\t\t\t\"endDate\": \"2021-12-31T00:00:00Z\"",
+									"\t\t\t}",
+									"\t\t},",
+									"\t\t\"rationale\": \"planning.budget.rationale\"",
+									"\t},",
+									"\t\"buyer\": {",
+									"\t\t\"name\": \"IMSP Institutul de Medicina Urgenta\",",
+									"\t\t\"identifier\": {",
+									"\t\t\t\"id\": \"1003600152606\",",
+									"\t\t\t\"scheme\": \"MD-IDNO\",",
+									"\t\t\t\"legalName\": \"IMSP Institutul de Medicina Urgenta\",",
+									"\t\t\t\"uri\": \"http://reference.iatistandard.org\"",
+									"\t\t},",
+									"\t\t\"address\": {",
+									"\t\t\t\"streetAddress\": \"str.Toma Ciorba nr.1\",",
+									"\t\t\t\"postalCode\": \"MD 2004\",",
+									"\t\t\t\"addressDetails\": {",
+									"\t\t\t\t\"country\": {",
+									"\t\t\t\t\t\"id\": \"MD\"",
+									"\t\t\t\t},",
+									"\t\t\t\t\"region\": {",
+									"\t\t\t\t\t\"id\": \"0101000\"",
+									"\t\t\t\t},",
+									"\t\t\t\t\"locality\": {",
+									"\t\t\t\t\t\"scheme\": \"CUATM\",",
+									"\t\t\t\t\t\"id\": \"0101000\",",
+									"\t\t\t\t\t\"description\": \"mun.Chişinău\"",
+									"\t\t\t\t}",
+									"\t\t\t}",
+									"",
+									"\t\t},",
+									"\t\t\"additionalIdentifiers\": [{",
+									"\t\t\t\"id\": \"1003600152606\",",
+									"\t\t\t\"scheme\": \"MD-IDNO\",",
+									"\t\t\t\"legalName\": \"IMSP Institutul de Medicina Urgenta\",",
+									"\t\t\t\"uri\": \"http://hrystynivka.miskrada.org.ua/\"",
+									"\t\t}],",
+									"\t\t\"contactPoint\": {",
+									"\t\t\t\"name\": \"Serviciul achizitii publice\",",
+									"\t\t\t\"email\": \"achizitii@urgenta.md\",",
+									"\t\t\t\"telephone\": \"022250809, 022250707\",",
+									"\t\t\t\"faxNumber\": \"022250809, 022250707\",",
+									"\t\t\t\"url\": \"http://hrystynivka.miskrada.org.ua/\"",
+									"\t\t},",
+									"\t\t\"details\": {",
+									"\t\t\t\"typeOfBuyer\": \"MINISTRY\",",
+									"\t\t\t\"mainGeneralActivity\": \"HEALTH\",",
+									"\t\t\t\"mainSectoralActivity\": \"WATER\"",
+									"\t\t}",
+									"\t}",
+									"}",
+									"",
+									"pm.environment.set(\"full_ei\", full_ei);",
+									"",
+									"console.log(pm.environment.get(\"full_ei\"));",
+									"",
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "3773709a-bcc1-4a41-83c4-6100f25a4654",
+								"type": "text/javascript",
+								"exec": [
+									"//GET info from Kafka and set variables",
+									"setTimeout(function () {",
+									"",
+									"  pm.sendRequest({",
+									"    url: pm.environment.get('localhost') + pm.environment.get('x-operation-id'),",
+									"    method: 'POST',",
+									"    header: ['Content-Type:application/json',",
+									"      'topic:' + pm.environment.get('kafka-topic'), 'timeout:10']",
+									"  }, function (err, response) {",
+									"",
+									"    if (err) {",
+									"",
+									"      return console.log(err);",
+									"",
+									"    }",
+									"",
+									"    if (response.json().data) {",
+									"",
+									"      const { outcomes } = response.json().data;",
+									"",
+									"      if (Array.isArray(outcomes.ei) && outcomes.ei[0][\"X-TOKEN\"]) {",
+									"        console.log('EI');",
+									"        pm.environment.set('ei-x-token', response.json().data.outcomes.ei[0][\"X-TOKEN\"]);",
+									"        pm.environment.set('ei-ocid', response.json().data.ocid);",
+									"        pm.environment.set('ei-ocid-str', `\"${response.json().data.ocid}\"`);",
+									"",
+									"      }",
+									"",
+									"    } else {",
+									"",
+									"      console.log(response.json().errors[0].description);",
+									"",
+									"    }",
+									"",
+									"  });",
+									"",
+									"}, 500);"
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7e2fe3ce-edca-46ac-9f12-340852261be0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f4d6c8d4-a4b9-4ff1-b4de-aa5981481646",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "9cb426c9-3862-4201-a8d5-09a94d0a7099",
+				"type": "text/javascript",
+				"exec": [
+					"pm.collectionVariables.set(\"testrail-host\", \"https://ustudiocompany.testrail.io/index.php?/api/v2/\");",
+					"pm.collectionVariables.set(\"testrail-get-cases\", \"get_cases\");",
+					"pm.collectionVariables.set(\"project-id\", 13);",
+					"pm.collectionVariables.set(\"create-ei\", \"&suite_id=245\");",
+					"pm.collectionVariables.set('create-ei-suite-id', 245);",
+					"pm.collectionVariables.set(\"regression\", \"&type_id=6\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6505f7e6-f110-4505-ad35-5e240f025494",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "250a34ed-fbb3-4091-bbe0-42e39fc753ef",
+			"key": "create-ei",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "f3faf946-c910-4343-a0d1-f8af428b0e2d",
+			"key": "project-id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "e69ba4c9-8c6b-4615-b955-2ce698aaba7c",
+			"key": "regression",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "7eff32d8-26ea-4cf3-a7be-b79708fbacc7",
+			"key": "testrail-get-cases",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "1bb3d75a-e786-4e35-8c5b-e8615af8160b",
+			"key": "testrail-host",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "297e52d6-95b2-4543-b386-bc2043df0e73",
+			"key": "cases-4-run",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "d1b9c69f-d9f0-4e32-bf8d-ed4bdfb79002",
+			"key": "create-ei-suite-id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "f7f0a1ec-78e2-4f6c-a983-8f5de754583c",
+			"key": "ei",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "a98bada8-3351-4190-8d2b-ae9af864ad7b",
+			"key": "run-id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "5d7dd345-3bcd-4dc4-8556-8571f1d30a4e",
+			"key": "full_ei",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
