@@ -282,13 +282,13 @@
 									"}, function (err, response) {",
 									"  pm.environment.set(\"access_token\", response.json().data.tokens.access);",
 									"  pm.sendRequest({",
-									"    url: 'http://localhost:8080/kafka/subscribe',",
+									"    url: 'http://localhost:8083/kafka/subscribe',",
 									"    method: 'POST',",
 									"    header: {",
 									"      'login': 'qa1',",
 									"      'password': pm.environment.get('topic-password'),",
 									"      'topics': pm.environment.get('kafka-topic'),",
-									"      'host': pm.environment.get('kafka-host'),",
+									"      'hosts': pm.environment.get('kafka-host'),",
 									"      'group_id': 'console-consumer-qa1',",
 									"      'Content-Type': 'application/json',",
 									"    }",
@@ -548,61 +548,61 @@
 	],
 	"variable": [
 		{
-			"id": "0d97031a-f24b-45cd-9077-7c4749f7dcd3",
+			"id": "5513677d-89bf-465f-990c-b875e919c665",
 			"key": "create-ei",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "0dc0e848-7ee1-49f4-991c-3b40a3643e7e",
+			"id": "46ef3898-09d9-4b1d-8a1e-76aa0dcc059c",
 			"key": "project-id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "1ffaa22f-8618-4c78-9ffa-8304ab4c3ff3",
+			"id": "5f17a7d4-f657-4736-8c6a-898d9d66ba71",
 			"key": "regression",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "b1b6a74a-ccd3-4773-98f9-2493bec30aa6",
+			"id": "715b78d3-2a29-4511-aac6-1985a2f07cb4",
 			"key": "testrail-get-cases",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "c76065bd-1842-4c09-9bbb-30057bad9d4e",
+			"id": "ee8d1876-689e-41cb-a50d-52e316456255",
 			"key": "testrail-host",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "35da0f7b-da2b-4ba7-a98c-d8bcc125c572",
+			"id": "bb054ae9-dda8-49d5-8637-3b063aa3d327",
 			"key": "cases-4-run",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "5ed0a255-2ee9-48fc-be01-141ac5becb39",
+			"id": "1e6f5092-92dc-4c89-8704-4cb16d795717",
 			"key": "create-ei-suite-id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "6ba3b521-eaef-470b-8335-d1b97d3a6012",
+			"id": "523f6b10-deae-4fd2-8594-0101070dc422",
 			"key": "ei",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a308035f-02f0-4522-af11-cc2fa2d88f42",
+			"id": "adac60db-3076-4b44-970e-775524d73c8e",
 			"key": "run-id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "3869a056-1097-4808-987d-eb603c049e94",
+			"id": "dc911cb1-6952-4843-9dd5-c0dc8bbd80b8",
 			"key": "full_ei",
 			"value": "",
 			"type": "string"
